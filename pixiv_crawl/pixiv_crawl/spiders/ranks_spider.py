@@ -1,5 +1,6 @@
 # coding=utf-8
-__author__ = 'littleVege'
+#__author__ = 'littleVege'
+# edited by intel0tw5727
 import scrapy
 import sys
 import json
@@ -12,8 +13,6 @@ class PixivSpider(scrapy.Spider):
 
     def start_requests(self):
         return [scrapy.Request(url='https://accounts.pixiv.net/login',callback=self.get_post_key)]
-
-
 
     def get_post_key(self, response):
         post_key = response.css('#old-login input[name=post_key]::attr(value)').extract_first()
@@ -30,7 +29,6 @@ class PixivSpider(scrapy.Spider):
                                'mode': 'login'
                            },
                            callback=self.logged_in)
-
 
     def logged_in(self,response):
         if response.url == 'https://accounts.pixiv.net/login':

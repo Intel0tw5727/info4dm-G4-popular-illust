@@ -38,7 +38,7 @@ class PixivImagesPipeline(ImagesPipeline):
         try:
             for image_url in item['img_urls']:
                 yield scrapy.Request(image_url,
-                headers={'Referer': item['url'],  #添加Referer，否则会返回403错误
+                headers={'Referer': item['url'],
                          'User-Agent': 'Mozilla/5.0 (Macintosh; '
                                        'Intel Mac OS X 10_10_5) '
                                        'AppleWebKit/537.36 (KHTML, like Gecko) '
@@ -48,7 +48,6 @@ class PixivImagesPipeline(ImagesPipeline):
             raise DropItem("Item contains no images")
 
     def item_completed(self, results, item, info):
-        #image_paths这段都没看懂，Python好高深，大概意思是获取results列表中获取到图片的地址
         image_paths = [x['path'] for ok, x in results if ok]
         if not image_paths:
             raise DropItem("Item contains no images")
